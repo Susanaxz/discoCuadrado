@@ -1,0 +1,123 @@
+* {
+	font-family: 'Roboto', sans-serif;
+	color: #3e3e3e;
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url('../img/back.jpg');
+	background-size: cover;
+}
+
+table {
+	font-weight: 500;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: left;
+	background-color: #f3f3f3;
+	border: 1px solid #e1e1e1;
+	margin-top: 20px;
+}
+
+td,
+th {
+	padding: 10px 15px;
+}
+
+th {
+	background-color: #3e3e3e;
+	color: #f3f3f3;
+}
+
+td {
+	cursor: pointer;
+}
+
+tr:not(:first-of-type):hover,
+.resaltar {
+	background-color: #c4d8f1;
+}
+
+.centrar {
+	text-align: center;
+}
+
+input[type='text'],
+input[type='number'],
+select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #e1e1e1;
+	margin-top: 5px;
+	color: #3e3e3e;
+	border-radius: 10px;
+}
+
+input[type='button'] {
+	font-weight: 500;
+	background-color: #3e3e3e;
+	color: #f3f3f3;
+	border: none;
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: all 0.3s;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+
+input[type='button']:hover {
+	background-color: #be1616;
+}
+
+label {
+	font-weight: 500;
+	display: block;
+	margin-top: 15px;
+}
+
+.wraper {
+	width: 650px;
+	margin: auto;
+	background-color: #f3f3f3;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+nav {
+	background-color: #3e3e3e;
+	padding: 12px;
+	border-radius: 5px;
+	display: inline-block;
+	width: 100%;
+}
+
+nav a {
+	text-decoration: none;
+	color: #f3f3f3;
+	padding: 7px;
+	transition: background-color 0.3s ease;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+nav a:hover {
+	background-color: #be1616;
+	color: #f3f3f3;
+	border-radius: 5px;
+}
+
+.resaltarenlace {
+	font-size: 1.5em;
+}
+
+#artistas option {
+	min-width: 150px;
+}
+
+img {
+	width: 100%;
+}
+
+input#nacionalidad {
+	width: 60px;
+}
