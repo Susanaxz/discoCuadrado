@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class albumController extends Controller
+class AlbumController extends Controller
 {
     //
 }
