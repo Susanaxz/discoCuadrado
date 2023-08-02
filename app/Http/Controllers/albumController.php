@@ -65,4 +65,73 @@ class AlbumController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getAll()
+    {
+        $albums = AlbumModel::all();
+
+        return response()->json($albums);
+    }
+
+    public function modificar(Request $request, $idalbum)
+    {
+        try {
+            $album = AlbumModel::find($idalbum);
+
+            $album->titulo = $request->input('titulo');
+            $album->year = $request->input('year');
+            $album->idgenero = $request->input('idgenero');
+
+            $album->save();
+
+            $artistasInput = $request->input('artistas');
+
+            if (is_string($artistasInput)) {
+                $artistas = json_decode($artistasInput, true);
+                Log::info('Decodificado de JSON: ' . json_encode($artistas));
+            } elseif (is_array($artistasInput)) {
+                $artistas = $artistasInput;
+                Log::info('Recibido como array: ' . json_encode($artistas));
+            } else {
+                throw new Exception('El contenido de la petición no es ni una cadena ni un array.');
+            }
+
+            foreach ($artistas as $idartista) {
+                $artista = ArtistaModel::find($idartista);
+                if ($artista) {
+                    Log::info("Artista encontrado con ID: $idartista");
+                    $idArtistas[] = $artista->idartista;
+                } else {
+                    Log::warning("No se pudo encontrar un artista con ID: $idartista");
+                }
+            }
+            $album->artistas()->sync($idArtistas);
+
+            return response()->json(['success' => 'Álbum modificado correctamente']);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function eliminar($idalbum)
+    {
+        try {
+            $album = AlbumModel::find($idalbum);
+
+            if ($album) {
+                // Primero eliminamos la relación en la tabla intermedia
+                $album->artistas()->detach();
+                // Luego eliminamos el álbum
+                $album->delete();
+
+                return response()->json(['success' => 'Álbum eliminado correctamente']);
+            } else {
+                throw new Exception('El álbum no existe');
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

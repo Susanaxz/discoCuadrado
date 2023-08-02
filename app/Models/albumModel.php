@@ -12,6 +12,8 @@ class AlbumModel extends Model
 
 
     protected $table = 'album';
+
+    protected $primaryKey = 'idalbum';
     
 
     protected $fillable = [

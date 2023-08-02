@@ -41,10 +41,13 @@ Route::delete('/artista/{idartista}', [ArtistaController::class, 'eliminar'])->n
 //mostrar los artistas
 Route::get('/artista', [ArtistaController::class, 'getAll'])->name('artista.all');
 
+//mostrar los albums
+Route::get('/albums/data', [AlbumController::class, 'getAll'])->name('album.all');
+
 
 Route::post('/albums', [AlbumController::class, 'alta'])->name('album.alta'); // alta de album
-Route::put('/albums/{idAlbum}', [AlbumController::class, 'modificar'])->name('album.modificar'); // editar album
-Route::delete('/albums/{idAlbum}', [AlbumController::class, 'eliminar'])->name('album.eliminar'); // eliminar album
+Route::put('/albums/{idalbum}', [AlbumController::class, 'modificar'])->name('album.modificar'); // editar album
+Route::delete('/albums/{idalbum}', [AlbumController::class, 'eliminar'])->name('album.eliminar'); // eliminar album
 
 
 Route::get('/generos', [GeneroController::class, 'index'])->name('generos.index'); // mostrar generos

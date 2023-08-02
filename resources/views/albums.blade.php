@@ -84,7 +84,14 @@
     });
 
 </script>
+<script>
 
+      $(document).ready(function() {
+      actualizarTablaAlbums();
+
+      });
+
+</script>
 
 
 </html>

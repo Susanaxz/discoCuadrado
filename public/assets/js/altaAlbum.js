@@ -71,6 +71,7 @@ $(document).ready(function () {
                     document.getElementById("year").value = "";
                     document.getElementById("idgenero").value =
                         "Selecciona un género";
+                    consultarAlbums(); // Actualizar tabla
                 }
                 if (data.error) {
                     // En caso de error, mostrar mensaje
