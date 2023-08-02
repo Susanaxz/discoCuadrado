@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $("#baja").click(function () {
-        let id = document.getElementById("idArtista").value;
+        let id = document.getElementById("idartista").value;
         let servicio = "/artista/" + id;
         let token = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
         let datos = {
             peticion: "baja",
-            idArtista: id,
+            idartista: id,
             _token: token,
         };
         let parametros = {

@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $("#modificar").click(function () {
-        let id = document.getElementById("idArtista").value;
+        let id = document.getElementById("idartista").value;
 
-        console.log("idArtista: " + id);
+        console.log("idartista: " + id);
         let nombre = document.getElementById("nombre").value;
         let nacionalidad = document.getElementById("nacionalidad").value;
 
@@ -13,7 +13,7 @@ $(document).ready(function () {
 
         let datos = {
             peticion: "modificacion",
-            idArtista: id,
+            idartista: id,
             nombre: nombre,
             nacionalidad: nacionalidad,
             _token: token,

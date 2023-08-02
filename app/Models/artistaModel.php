@@ -13,6 +13,7 @@ class ArtistaModel extends Model
     use HasFactory;
 
     protected $table = 'artista';
+    protected $primaryKey = 'idartista';
 
     public $timestamps = false;
     
@@ -53,6 +54,11 @@ class ArtistaModel extends Model
         } catch (Exception $e) {
             return array('codigo' => $e->getCode(), 'error' => $e->getMessage());
         }
+    }
+
+    public function albums()
+    {
+        return $this->belongsToMany(AlbumModel::class, 'relartistaalbum', 'idartista', 'idalbum');
     }
 
 }

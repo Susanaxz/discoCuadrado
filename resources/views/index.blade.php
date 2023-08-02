@@ -5,7 +5,7 @@
     <title>Discos</title>
     <meta charset='UTF-8'>
     <link rel="stylesheet" href="{{ asset('assets/css/estilos.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 

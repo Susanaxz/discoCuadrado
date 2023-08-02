@@ -42,6 +42,9 @@ $(document).ready(function () {
                     console.log("Artista insertado correctamente");
                     document.getElementById("mensaje").innerText =
                         "Artista insertado correctamente";
+                    // limpiar el formulario
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("nacionalidad").value = "Selecciona una nacionalidad";
                     consultarArtistas(); 
                 } else {
                     console.log(error);

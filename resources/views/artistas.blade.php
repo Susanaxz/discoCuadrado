@@ -5,7 +5,6 @@
     <title>Discos</title>
     <meta charset='UTF-8'>
     <link rel="stylesheet" href="{{ asset('assets/css/estilos.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,7 +26,7 @@
         <form method="POST" action="/artista">
 
             @csrf
-            <input type="hidden" name="idArtista" id='idArtista' />
+            <input type="hidden" name="idartista" id='idartista' />
             <label>Nombre: </label>
             <input type="text" maxlength="100" name="nombre" id="nombre" /><br><br>
             <label>Nacionalidad: </label>

@@ -1,59 +1,114 @@
 function consultarArtistas() {
     let servicio = "/artista";
-var tabla = document.getElementById("listaartistas");
-    
+    var tabla = document.getElementById("listaartistas");
 
-    let datos = new FormData(); // Esto es un objeto de tipo formulario de HTML
-
-    datos.append("peticion", "consultar");
-
-     let parametros = {
-         method: "get",
+    let parametros = {
+        method: "get",
     };
-    
+
     fetch(servicio, parametros)
         .then((respuesta) => respuesta.json())
         .then((mensaje) => {
             console.log(mensaje);
+            console.log("Respuesta del servidor:", mensaje);
 
-            // Limpia la tabla antes de agregar los nuevos datos.
-            tabla.innerHTML = "";
+            // Sólo manipula la tabla si existe
+            if (tabla) {
+                tabla.innerHTML = "";
 
-            if (mensaje.length === 0) {
-    let fila = tabla.insertRow();
-    fila.insertCell().innerHTML = "No hay artistas.";
-} else {
-    // Agregar las cabeceras a la tabla
-    let filaCabecera = tabla.insertRow();
-    filaCabecera.insertCell().innerHTML = "<strong>Nombre</strong>";
-    filaCabecera.insertCell().innerHTML = "<strong>Nacionalidad</strong>";
-    
-    mensaje.forEach(function (artista) {
-        let fila = tabla.insertRow();
-        fila.insertCell().innerHTML = artista.nombre;
-        fila.insertCell().innerHTML = artista.nacionalidad;
-        
-        // Añadir evento de clic a la fila para seleccionar el artista
-        fila.onclick = function() {
-            // Almacenar idArtista en una variable global
-            window.idArtistaSeleccionado = artista.idArtista;
+                if (mensaje.length === 0) {
+                    let fila = tabla.insertRow();
+                    fila.insertCell().innerHTML = "No hay artistas.";
+                } else {
+                    let filaCabecera = tabla.insertRow();
+                    filaCabecera.insertCell().innerHTML =
+                        "<strong>Nombre</strong>";
+                    filaCabecera.insertCell().innerHTML =
+                        "<strong>Nacionalidad</strong>";
 
-            // Completar el formulario con los datos del artista
-            document.getElementById("idArtista").value = artista.idArtista;
+                    mensaje.forEach(function (artista) {
+                        let fila = tabla.insertRow();
+                        fila.insertCell().innerHTML = artista.nombre;
+                        fila.insertCell().innerHTML = artista.nacionalidad;
 
-            document.getElementById('nombre').value = artista.nombre;
-            document.getElementById('nacionalidad').value = artista.nacionalidad;
+                        fila.onclick = function () {
+                            let idartistaElement =
+                                document.getElementById("idartista");
+                            let nombreElement =
+                                document.getElementById("nombre");
+                            let nacionalidadElement =
+                                document.getElementById("nacionalidad");
+                            let modificarElement =
+                                document.getElementById("modificar");
+                            let bajaElement = document.getElementById("baja");
 
-            // Habilitar los botones de modificar y eliminar
-            document.getElementById('modificar').removeAttribute('disabled');
-            document.getElementById('baja').removeAttribute('disabled');
-        };
-    }); 
+                            if (
+                                idartistaElement &&
+                                nombreElement &&
+                                nacionalidadElement &&
+                                modificarElement &&
+                                bajaElement
+                            ) {
+                                window.idartistaSeleccionado =
+                                    artista.idartista;
+
+                                idartistaElement.value = artista.idartista;
+                                nombreElement.value = artista.nombre;
+                                nacionalidadElement.value =
+                                    artista.nacionalidad;
+
+                                modificarElement.removeAttribute("disabled");
+                                bajaElement.removeAttribute("disabled");
+                            }
+                        };
+                    });
+                }
             }
-
-        })  
+        })
         .catch((error) => {
             console.log(error);
-        }
-    );
+        });
 }
+function llenarComboArtistas() {
+    console.log("llenarComboArtistas");
+    let servicio = "/artista";
+
+    let datos = new FormData();
+    datos.append("peticion", "C");
+
+    let parametros = {
+        method: "get",
+    };
+
+    fetch(servicio, parametros)
+        .then((respuesta) => {
+            if (!respuesta.ok) {
+                throw new Error("Error del servidor");
+            }
+            return respuesta.json();
+        })
+        .then((artistas) => {
+            // Imprime el primer artista para comprobar su estructura
+            console.log(artistas[0]);
+
+            let opciones = artistas
+                .map((artista) => {
+                    return `<option value='${artista.idartista}'>${artista.nombre}</option>`;
+                })
+                .join("");
+
+            let selectArtistas = document.querySelector("#artistas");
+            console.log(selectArtistas);
+            if (selectArtistas) {
+                selectArtistas.innerHTML = opciones;
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+}
+
+$(document).ready(function () {
+    consultarArtistas();
+    llenarComboArtistas();
+});

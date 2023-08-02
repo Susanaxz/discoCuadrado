@@ -51,6 +51,7 @@ class ArtistaController extends Controller
     public function getAll()
     {
         $artistas = ArtistaModel::all(); // all() es el metodo para obtener todos los registros
+        
         return response()->json($artistas); // retornamos la respuesta
     }
 
@@ -58,12 +59,12 @@ class ArtistaController extends Controller
     {
         try {
             $validacion = $request->validate([
-                'idArtista' => 'required',
+                'idartista' => 'required',
                 'nombre' => 'required',
                 'nacionalidad' => 'required'
             ]);
 
-            $id = $request->input('idArtista');
+            $id = $request->input('idartista');
             $nombre = ucwords(trim($request->input('nombre')));
             $nacionalidad = $request->input('nacionalidad');
             
@@ -87,10 +88,10 @@ class ArtistaController extends Controller
     {
         try {
             $validacion = $request->validate([
-                'idArtista' => 'required'
+                'idartista' => 'required'
             ]);
 
-            $id = $request->input('idArtista');
+            $id = $request->input('idartista');
 
             // crear el objeto
             $artista = new artistaModel();
