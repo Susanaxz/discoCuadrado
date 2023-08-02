@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\artistaModel;
 use Exception;
+use App\Models\AlbumModel;
 
 
 class ArtistaController extends Controller
@@ -107,4 +108,23 @@ class ArtistaController extends Controller
         }
     
     }
+
+    public function getArtistasByAlbum($idalbum)
+    {
+        try {
+            $album = AlbumModel::find($idalbum);
+            if (!$album) {
+                return response()->json(['codigo' => '400', 'mensaje' => 'Álbum no encontrado']);
+            }
+
+            $artistas = $album->artistas; 
+
+            return response()->json($artistas);
+        } catch (Exception $e) {
+            $respuesta = array('codigo' => $e->getCode(), 'error' => $e->getMessage());
+            return response()->json($respuesta);
+        }
+    }
 }
+
+    

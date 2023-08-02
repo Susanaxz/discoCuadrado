@@ -24,6 +24,11 @@ $("#baja").click(function () {
         .then((data) => {
             if (data.success) {
                 console.log(data.success);
+                // limpiar el formulario una vez que se haya dado de baja el álbum
+                document.getElementById("idalbum").value = "";
+                document.getElementById("titulo").value = "";
+                document.getElementById("year").value = "";
+                // Mostrar mensaje de éxito
                 document.getElementById("mensaje").innerText = data.success;
                 // Actualizar la lista de álbumes
                 consultarAlbums();

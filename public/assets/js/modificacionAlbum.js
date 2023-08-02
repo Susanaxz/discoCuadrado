@@ -38,6 +38,12 @@ $(document).ready(function () {
                 if (data.success) {
                     console.log(data.success);
                     document.getElementById("mensaje").innerText = data.success;
+                    // limpiar formulario
+                    document.getElementById("titulo").value = "";
+                    document.getElementById("year").value = "";
+                    document.getElementById("idgenero").value = "";
+                    document.getElementById("artistas").value = "";
+                    // Actualizar la lista de álbumes
                     consultarAlbums();
                 } else if (data.error) {
                     console.log(data.error);

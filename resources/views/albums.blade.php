@@ -52,7 +52,8 @@
         <hr>
         <form id='buscador'>
             <label>Buscar: </label>
-            <input type='text' id='buscar'></input>
+            <input type='text' id='buscar' onkeyup="buscarAlbum()"></input>
+
 
             <p id="mensaje"></p>
 
@@ -70,6 +71,13 @@
 <script src="{{ asset('assets/js/consultaGenero.js') }}"></script>
 <script src="{{ asset('assets/js/consultaArtista.js') }}"></script>
 <script src="{{ asset('assets/js/inicioAlbum.js') }}"></script>
+<script src="{{ asset('assets/js/buscarAlbum.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        consultarAlbums();
+    });
+</script>
 
 <script>
     $(document).ready(function() {
@@ -86,10 +94,7 @@
 </script>
 <script>
 
-      $(document).ready(function() {
-      actualizarTablaAlbums();
 
-      });
 
 </script>
 

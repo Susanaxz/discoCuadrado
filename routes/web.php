@@ -51,3 +51,9 @@ Route::delete('/albums/{idalbum}', [AlbumController::class, 'eliminar'])->name('
 
 
 Route::get('/generos', [GeneroController::class, 'index'])->name('generos.index'); // mostrar generos
+
+
+Route::get('/albums/{idalbum}/artistas', [ArtistaController::class, 'getArtistasByAlbum'])->name('album.artistas'); // mostrar artistas de un album
+
+Route::get('/albums/buscar/{termino}', [AlbumController::class, 'buscar'])->name('albums.buscar');
+
