@@ -76,14 +76,43 @@ class AlbumController extends Controller
     public function modificar(Request $request, $idalbum)
     {
         try {
+
+            // Comprobar si se ha seleccionado un álbum
+            if ($idalbum == null) {
+                return response()->json(['error' => 'Debes seleccionar un álbum de la lista.'], 400);
+            }
+
+            // Buscar el álbum en la base de datos
             $album = AlbumModel::find($idalbum);
 
+            // Verificar si el álbum existe
+            if (!$album) {
+                return response()->json(['error' => 'Debe seleccionar un álbum.'], 404);
+            }
+
+            // Validar los campos requeridos
+            $request->validate([
+                'titulo' => 'required',
+                'year' => 'required|integer|between:1901,2023',
+                'idgenero' => 'required|exists:genero,idgenero|not_in:0',
+                'artistas' => 'required'
+            ], [
+                'titulo.required' => 'El título es obligatorio',
+                'year.required' => 'El año es obligatorio',
+                'year.integer' => 'El año debe ser un número',
+                'year.between' => 'El año debe estar entre 1901 y 2023',
+                'idgenero.required' => 'El género es obligatorio',
+                'idgenero.exists' => 'El género seleccionado no existe',
+                'idgenero.not_in' => ' debes escoger un género',
+                'artistas.required' => 'Debe seleccionar al menos un artista',
+            ]);
+
+            // Actualizar el álbum
             $album->titulo = $request->input('titulo');
             $album->year = $request->input('year');
             $album->idgenero = $request->input('idgenero');
 
             $album->save();
-
             $artistasInput = $request->input('artistas');
 
             if (is_string($artistasInput)) {
@@ -134,4 +163,14 @@ class AlbumController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function buscar($termino)
+    {
+        $albumes = AlbumModel::where('titulo', 'like', "%{$termino}%")
+        ->orWhere('year', 'like', "%{$termino}%")
+        ->get();
+
+        return response()->json($albumes);
+    }
+
 }
